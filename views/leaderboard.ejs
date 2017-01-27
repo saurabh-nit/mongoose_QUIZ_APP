@@ -1,0 +1,64 @@
+<html>
+</<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <style>
+        .mybody{
+          background-image : url(http://www.pixelstalk.net/wp-content/uploads/2016/08/3D-Background-Images-For-Websites-1920x1080.jpg);
+         background-repeat : no-repeat;
+        }
+
+  </style>
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+    <div><h1 class="text-primary text-center"><b>Leader Board</b></h1></div>
+    <table class="table table-striped table-bordered table-responsive table-condensed table-hover">
+    <thead>
+
+      <tr class="danger">
+        <th>Serial No.</th>
+        <th>Name of Candidate</th>
+        <th>Score</th>
+        <th>Submission Time</th>
+      </tr>
+    </thead>
+    <tbody>
+
+     <% shorts.forEach(function(v,index){ %>
+      <%  if(cid == v._id) {%>
+      <tr style="background-color : #0ab24d">
+        <td><h4><%= (index+1) %></h4></td>
+        <td><h4><%= v.name %></h4></td>
+        <td><h4><%= v.score %></h4></td>
+        <td><h4><%= v.time %></h4></td>
+      </tr>
+     <% }else { %>
+      <tr >
+        <td><h4><%= (index+1) %></h4></td>
+        <td><h4><%= v.name %></h4></td>
+        <td><h4><%= v.score %></h4></td>
+        <td><h4><%= v.time %></h4></td>
+      </tr>
+      <% }%>
+   <% }) %>
+    </tbody>
+  </table>
+</div>
+</body>
+ </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <style>
+          #m{
+            background-image: url(http://smashingyolo.com/wp-content/uploads/2014/05/Best-Website-Background-Images10.jpg);
+
+          }
+
+          #b{
+            background-image:url(http://smashingyolo.com/wp-content/uploads/2014/05/Best-Website-Background-Images15.jpg);
+            background-repeat: no-repeat;
+          }
+
+          #q{
+            background-image :url(http://kaba35.com/wp-content/uploads/2015/11/Savin-NY-Website-Background-Web1.jpg);
+          }
+
+    </style>
+
+
+  </head>
+  <body id="b">
+    <div id="m" class="container-fluid">
+
+      <div class="text-center"><h2> <%= title %> </h2> </div>
+      <div class="well well-sm col-md-6 col-md-offset-3"><h4>Name of Candidate :
+      <input type="text" id="candidate_name" placeholder="Name"></h4></div>
+
+      <div id="q" class="container-fluid col-md-6 col-md-offset-3">
+
+      <% questionbank.forEach(function(v,index){ %>
+      <h2><%= (index+1) %>. <%= v.question %></h2>
+
+
+      <form><ul>
+        <div class="radio">
+           <h4><label><input type="radio" name="opt<%=index%>" data-id="<%= v._id%>"  value="<%= v.option[0] %>">I. <%= v.option[0] %></label></h4>
+       </div>
+       <div class="radio">
+           <h4><label><input type="radio" name="opt<%=index%>" data-id="<%= v._id%>"  value="<%= v.option[1] %>">II. <%= v.option[1] %></label></h4>
+      </div>
+      <div class="radio">
+           <h4> <label><input type="radio" name="opt<%=index%>" data-id="<%= v._id%>"  value="<%= v.option[2] %>">III. <%= v.option[2] %></label></h4>
+      </div>
+       <div class="radio">
+           <h4><label><input type="radio" name="opt<%=index%>" data-id="<%= v._id%>" value="<%= v.option[3] %>">IV. <%= v.option[3] %></label></h4>
+      </div>
+    </form></ul>
+    <% }) %>
+    <hr>
+    <button type="button" id="btn" class="btn btn-primary col-md-offset-4 col-md-3">Submit</button>
+      </div>
+
+ </div>
+
+
+  <script>
+    $(document).ready(function() {
+      $('#btn').click(function (evt) {
+           evt.preventDefault();
+
+          var dt =  new Date();
+          //   $.now();
+          var time = dt.toLocaleString('en-US');
+          // alert(time);
+          // var time1 =  $.now();
+          // alert(time1);
+          // if(time1>time)
+          //   alert('more')
+          // else
+          //   alert('less')
+          // var ids = [];
+          // <% for (var i = 0; i < 5; i++){ %>
+          //    ids.push($("input[name ='opt<%= i %>']:checked").data('id'));
+          // <% } %>
+        //  console.log(ids);
+
+        var form_response = [ ];
+
+          <% for (var i = 0; i < 5; i++){ %>
+               var o = ($("input[name ='opt<%= i %>']:checked").val());
+               var i = ($("input[name ='opt<%= i %>']:checked").data('id'));
+
+            var  obj = {
+                resp : o,
+                 qid : i
+            }
+              form_response.push(obj);
+          <% } %>
+
+
+
+
+         var test_taker = {
+                             cname : $('#candidate_name').val(),
+                      current_time : time,
+                           respond : form_response
+                  // selected_option : opt,
+                        //  ques_id : ids
+         }
+
+var xyz = function(){
+
+          var tmp;
+           $.ajax({
+               async: false,
+               type : "POST",
+              cache : false,
+                url : '/',
+               data : test_taker,          // multiple data  in form of object are sent using ajax
+            success : function(result){
+                         alert('Your Test has been finished.');
+                         alert(result.cid);
+
+                          tmp =  result.cid;
+                      }
+
+               });
+            return tmp;
+        }();
+
+
+      alert(xyz);
+          window.location.href='/leaderboard/'+ xyz;
+        return false;
+     });
+  });
+ </script>
+
+
+
+  </body>
+</html>
